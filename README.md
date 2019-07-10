@@ -1,14 +1,19 @@
-# Printing Hello World with NodeJS
+# Displaying data from API with Node JS
 
 ## Description
+For the task, **Axios** needs to be installed in the directory of the source files. This is so the HTTP calls can be made to the API. When the project is started with `npm start`, data will be displayed from the following API :- **swapi**.
 
-NodeJs allows the creation of a JSON file **package.json** with the use of `npm init`. A Javascript file containing the logic for Hello World is saved in the **src** folder of the root directory of where the JSON file is saved. A link to the script file needs to be present in the JSON file. With the command `npm start` the process will execute and 
+**Postman** can also be utilised to simulate and make calls to the API that is currently being used. This helps to validate multiple things that you may be looking for, in order for your main program to successfully utilise the API.
+
 
 ## Table
 
 ```markdown
-|Task Name 	  | Task Desc       | Output        |   |   |
-|------------:|-----------------|---------------|---|---|
-| `npm start` | Outputs message | "Hello World" |   |   |
+
+|   Task Name  | Task Desc                                      | Output     |   |   |
+|------------: |------------------------------------------------|------------|---|---|
+| `data fetch` | List of Starships and Pilots will be displayed | Starship 1 |   |   |
+|              |                                                | Pilot 1    |   |   |
+|              |                                                | Pilot 2    |   |   |
 ```
 
