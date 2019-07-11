@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/perej3/gig-project-setup/issues"
   },
-  "homepage": "https://github.com/perej3/gig-project-setup#readme"
+  "homepage": "https://github.com/perej3/gig-project-setup#readme",
+  "dependencies": {
+    "axios": "^0.19.0"
+  }
 }
