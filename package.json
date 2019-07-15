@@ -4,11 +4,7 @@
   "description": "Hello World Prog",
   "main": "index.js",
   "scripts": {
-    "start": "node bin/index.js",
-    "compile": "mkdir src"
-  },
-  "bin": {
-    "starwars": "./bin/index.js"
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +17,6 @@
   },
   "homepage": "https://github.com/perej3/gig-project-setup#readme",
   "dependencies": {
-    "axios": "^0.19.0",
-    "inquirer": "^6.4.1"
+    "axios": "^0.19.0"
   }
 }
