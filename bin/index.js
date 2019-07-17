@@ -3,7 +3,7 @@
 const axios = require('axios');
 const inquirer = require('inquirer');
 
-getAPI();
+getAPI().then(Response => InquirerQ(Response));
 
 async function getAPI() {
 
@@ -30,7 +30,7 @@ async function getAPI() {
    StarshipUrl = starShipsAPI.data.next;
 
  }
- InquirerQ(starShipResponse);
+ return starShipResponse;
 }
 
 function InquirerQ(starShipResponse) {
