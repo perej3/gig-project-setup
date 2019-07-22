@@ -1,15 +1,15 @@
-import * as axs from "./axiosAPI";
+import { httpGet } from "./http.service";
 import { InquirerQ } from "./inquirer";
-import { ShipModule, Value } from "./interfaces";
+import { ShipModule, Value } from "./starwars.model";
 
-getAPI().then(response => InquirerQ(response));
+getStarships().then(response => InquirerQ(response));
 
-async function getAPI() {
-  let StarshipUrl: string = `https://swapi.co/api/starships/`;
+async function getStarships() : Promise<ShipModule<Value>[]> {
+  let StarshipUrl = `https://swapi.co/api/starships/`;
   let starShipResponse: ShipModule<Value>[] = [];
 
   while (StarshipUrl != null) {
-    const starShipsApi = await axs.GetAPIData(StarshipUrl);
+    const starShipsApi = await httpGet(StarshipUrl);
 
     for (let i = 0; i < starShipsApi.data.results.length; i++) {
       let ShipName: string = starShipsApi.data.results[i].name;

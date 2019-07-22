@@ -1,17 +1,15 @@
 import * as inquirer from "inquirer";
-import * as axs from "./axiosAPI";
+import * as axs from "./http.service";
 import {
   ShipModule,
   Value,
   PilotAnswerValue,
   StarshipAnswer,
   PilotAnswer
-} from "./interfaces";
+} from "./starwars.model";
 
-export function InquirerQ(starShipResponse: ShipModule<Value>[]) {
+export function getAnswers(starShipResponse: ShipModule<Value>[]) : void {
   inquirer.prompt(Questions(starShipResponse)).then(answers => {
-    //console.log("FFF", answers.Starships);
-    // answers.Pilots.name
     console.info("Ship Selected:", answers.Starship.name);
     console.info("Pilot Selected:", answers.Pilot.name);
     console.info("Pilot Details", answers.Pilot);
@@ -28,19 +26,18 @@ export function Questions(
     choices: starShipResponse
   };
 
-  let Plot: inquirer.Question<StarshipAnswer> = {
+  let Pilot: inquirer.Question<StarshipAnswer> = {
     type: "list",
     name: "Pilot",
     message: "Select Pilot",
     choices(answers) {
-      // console.log(answers);
       return GetPilots(answers.Starship.url);
     }
   };
-  return [Ship, Plot];
+  return [Ship, Pilot];
 }
 
-async function GetPilots(StarshipKey: string[]) {
+async function GetPilots(StarshipKey: string[]) : Promise<ShipModule<PilotAnswerValue>[]> {
   const PilotUrls = StarshipKey;
 
   let array: ShipModule<PilotAnswerValue>[] = [];
@@ -57,7 +54,7 @@ async function GetPilots(StarshipKey: string[]) {
   }
 
   for (let i = 0; i < PilotUrls.length; i++) {
-    const pilot = await axs.GetAPIData(PilotUrls[i]);
+    const pilot = await axs.httpGet(PilotUrls[i]);
 
     array.push({
       name: pilot.data.name,
