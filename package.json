@@ -23,6 +23,7 @@
   "homepage": "https://github.com/perej3/gig-project-setup#readme",
   "dependencies": {
     "axios": "^0.19.0",
+    "figlet": "^1.2.3",
     "inquirer": "^6.5.0"
   },
   "devDependencies": {
