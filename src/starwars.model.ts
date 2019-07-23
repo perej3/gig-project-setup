@@ -5,7 +5,7 @@ export interface ShipModule<T> {
 
 export interface StarshipValue {
   name: string;
-  piloturls: string[];
+  pilotUrls: string[];
 }
 
 export interface PilotValue {

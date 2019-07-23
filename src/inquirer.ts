@@ -1,5 +1,6 @@
 import * as inquirer from "inquirer";
-import * as axs from "./http.service";
+import { httpGet }from "./http.service";
+
 import clear from "clear";
 import { loader } from "./loading.buffer";
 import { main } from ".";
@@ -48,7 +49,7 @@ export function Questions(
     name: "pilot",
     message: "Select Pilot",
     choices(answers) {
-      return GetPilots(answers.starship.piloturls);
+      return GetPilots(answers.starship.pilotUrls);
     }
   };
   return [ship, pilot];
@@ -59,7 +60,7 @@ async function GetPilots(
 ): Promise<ShipModule<PilotValue>[]> {
   let array: ShipModule<PilotValue>[] = [];
   loader();
-  if (pilotUrls.length === 0) {
+  if (!pilotUrls.length) {
     array.push({
       name: "No Pilots",
       value: {
@@ -71,7 +72,7 @@ async function GetPilots(
   }
 
   for (let i = 0; i < pilotUrls.length; i++) {
-    const pilot = await axs.httpGet(pilotUrls[i]);
+    const pilot = await httpGet(pilotUrls[i]);
 
     array.push({
       name: pilot.data.name,

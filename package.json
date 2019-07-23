@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/perej3/gig-project-setup#readme",
   "dependencies": {
-    "@types/clui": "^0.3.0",
     "axios": "^0.19.0",
     "chalk": "^2.4.2",
     "clear": "^0.1.0",
@@ -30,9 +29,12 @@
     "figlet": "^1.2.3",
     "inquirer": "^6.5.0",
     "readline": "^1.3.0"
+    
   },
   "devDependencies": {
     "@types/figlet": "^1.2.0",
-    "@types/inquirer": "^6.0.3"
+    "@types/clui": "^0.3.0",
+    "@types/inquirer": "^6.0.3",
+    "@typescript": "^3.5.3"
   }
 }

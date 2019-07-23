@@ -13,20 +13,20 @@ export function main() {
 
   async function getStarships(): Promise<ShipModule<StarshipValue>[]> {
     let starshipUrl = `https://swapi.co/api/starships/`;
-    let starShipResponse: ShipModule<StarshipValue>[] = [];
+    const starShipResponse: ShipModule<StarshipValue>[] = [];
 
     while (starshipUrl != null) {
       const starShipsApi = await httpGet(starshipUrl);
 
       for (let i = 0; i < starShipsApi.data.results.length; i++) {
-        let shipName: string = starShipsApi.data.results[i].name;
-        let pilotUrls: string[] = starShipsApi.data.results[i].pilots;
+        const name: string = starShipsApi.data.results[i].name;
+        const pilotUrls: string[] = starShipsApi.data.results[i].pilots;
 
         starShipResponse.push({
-          name: shipName,
+          name,
           value: {
-            name: shipName,
-            piloturls: pilotUrls
+            name,
+            pilotUrls: pilotUrls
           }
         });
       }

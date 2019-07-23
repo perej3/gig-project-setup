@@ -1,4 +1,3 @@
-import * as inquirer from "inquirer";
 import * as CLI from "clui";
 
 const Spinner = CLI.Spinner;
@@ -20,8 +19,8 @@ export function loader(): void {
   let number = 2;
   setInterval(function() {
     number--;
-    countdown.message("Loading in " + number + " seconds...  ");
-    if (number === 0) {
+    countdown.message(`Loading in ${number} seconds`);
+    if (!number) {
       process.stdout.write("\n");
       countdown.stop();
     }
