@@ -1,48 +1,66 @@
 import * as inquirer from "inquirer";
-import * as axs from "./http.service";
+import { httpGet }from "./http.service";
+
+import clear from "clear";
+import { loader } from "./loading.buffer";
+import { main } from ".";
+
 import {
   ShipModule,
-  Value,
-  PilotAnswerValue,
+  StarshipValue,
+  PilotValue,
   StarshipAnswer,
   PilotAnswer
 } from "./starwars.model";
 
-export function getAnswers(starShipResponse: ShipModule<Value>[]) : void {
+import { exitMessage } from "./console.clear";
+
+export function getAnswers(
+  starShipResponse: ShipModule<StarshipValue>[]
+): void {
   inquirer.prompt(Questions(starShipResponse)).then(answers => {
-    console.info("Ship Selected:", answers.Starship.name);
-    console.info("Pilot Selected:", answers.Pilot.name);
-    console.info("Pilot Details", answers.Pilot);
+    console.info("Ship Selected:", answers.starship.name);
+    console.info("Pilot Selected:", answers.pilot.name);
+    console.info("Pilot Details", answers.pilot);
+
+    inquirer.prompt(exitMessage()).then(answers => {
+      if (answers.toClearTerminal === true) {
+        clear();
+        main();
+      } else {
+        main();
+      }
+    });
   });
 }
 
 export function Questions(
-  starShipResponse: ShipModule<Value>[]
+  starShipResponse: ShipModule<StarshipValue>[]
 ): inquirer.ListQuestion<StarshipAnswer & PilotAnswer>[] {
-  let Ship: inquirer.Question<PilotAnswer> = {
+  let ship: inquirer.Question<PilotAnswer> = {
     type: "list",
-    name: "Starship",
+    name: "starship",
     message: "Select a Starship",
     choices: starShipResponse
   };
 
-  let Pilot: inquirer.Question<StarshipAnswer> = {
+  let pilot: inquirer.Question<StarshipAnswer> = {
     type: "list",
-    name: "Pilot",
+    name: "pilot",
     message: "Select Pilot",
     choices(answers) {
-      return GetPilots(answers.Starship.url);
+      return GetPilots(answers.starship.pilotUrls);
     }
   };
-  return [Ship, Pilot];
+  return [ship, pilot];
 }
 
-async function GetPilots(StarshipKey: string[]) : Promise<ShipModule<PilotAnswerValue>[]> {
-  const PilotUrls = StarshipKey;
-
-  let array: ShipModule<PilotAnswerValue>[] = [];
-
-  if (PilotUrls.length === 0) {
+async function GetPilots(
+  pilotUrls: string[]
+): Promise<ShipModule<PilotValue>[]> {
+  let array: ShipModule<PilotValue>[] = [];
+  loader();
+  if (!pilotUrls.length) {
     array.push({
       name: "No Pilots",
       value: {
@@ -53,8 +71,8 @@ async function GetPilots(StarshipKey: string[]) : Promise<ShipModule<PilotAnswer
     return array;
   }
 
-  for (let i = 0; i < PilotUrls.length; i++) {
-    const pilot = await axs.httpGet(PilotUrls[i]);
+  for (let i = 0; i < pilotUrls.length; i++) {
+    const pilot = await httpGet(pilotUrls[i]);
 
     array.push({
       name: pilot.data.name,

@@ -3,12 +3,12 @@ export interface ShipModule<T> {
   value: T;
 }
 
-export interface Value {
+export interface StarshipValue {
   name: string;
-  url: string[];
+  pilotUrls: string[];
 }
 
-export interface PilotAnswerValue {
+export interface PilotValue {
   name: string;
   height: number;
 }
@@ -17,13 +17,13 @@ export interface ShipAnswers {
   type: string;
   name: string;
   message: string;
-  choices: ShipModule<Value>[];
+  choices: ShipModule<StarshipValue>[];
 }
 
 export interface StarshipAnswer {
-  Starship: Value;
+  starship: StarshipValue;
 }
 
 export interface PilotAnswer {
-  Pilot: PilotAnswerValue;
+  pilot: PilotValue;
 }
